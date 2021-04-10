@@ -64,3 +64,8 @@ var turbine = new Turbine();
 
 ![ScreenShot](../../image/turbine_class.png)
 
+### ta new một `command` dùng `turbine`
+```
+const onCommand = new OnCommand(turbine);
+```
+![ScreenShot](../../image/new_command.png)
