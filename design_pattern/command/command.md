@@ -56,7 +56,7 @@ console.log(turbine.state)
 ```
 ## `giải thích code`
 
-```
+``` javascript
 var turbine = new Turbine();
 ```
 
@@ -65,7 +65,13 @@ var turbine = new Turbine();
 ![ScreenShot](../../image/turbine_class.png)
 
 ### ta new một `command` dùng `turbine`
-```
+``` javascript
 const onCommand = new OnCommand(turbine);
 ```
 ![ScreenShot](../../image/new_command.png)
+
+``` javascript
+const cockpit = new Cockpit(onCommand);
+console.log(cockpit, "cockpit")
+```
+![ScreenShot](../../image/cockpit_class.png)
