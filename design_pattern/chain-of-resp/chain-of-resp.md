@@ -2,7 +2,7 @@
 
 ## Giải thích các case
 
-- ## Case 1:
+## Case 1:
 
 ## `> $ 500`
 
@@ -129,7 +129,7 @@ console.log(resp, "resp");
 
 ![ScreenShot](../../image/all_dp22.png)
 
-- ## Case 2:
+## Case 2:
 
 ## `more than 3 products`
 
@@ -148,7 +148,26 @@ console.log(sc, "sc");
 let resp = discount.calc(sc.products);
 console.log(resp, "resp");
 ```
+
 ![ScreenShot](../../image/sc_dp_21.png)
+
+## Case 3:
+
+## `more than 3 products and > $ 500 `
+
+```javascript
+let discount = new Discount();
+
+let sc = new ShoppingCart();
+sc.addProduct(1000);
+sc.addProduct(100);
+sc.addProduct(100);
+sc.addProduct(100);
+
+let resp = discount.calc(sc.products);
+```
+![ScreenShot](../../image/sc_sp_22.png)
+
 
 - ## All code
 
