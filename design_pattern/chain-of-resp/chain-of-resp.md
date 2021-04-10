@@ -44,6 +44,21 @@ const sc = new ShoppingCart();
 
 - ### `step 13`:
 ``` javascript
+`discount`
+
+function Discount() {
+  this.calc = function(products) {
+    var ndiscount = new NumberDiscount();
+    var pdiscount = new PriceDiscount();
+    var none = new NoneDiscount();
+
+    ndiscount.setNext(pdiscount);
+    pdiscount.setNext(none);
+
+    return ndiscount.exec(products);
+  };
+}
+
 const discount = new Discount();
 console.log(discount, 'discount')
 const sc = new ShoppingCart();
