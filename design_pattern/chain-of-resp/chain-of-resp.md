@@ -1,8 +1,12 @@
 # Giải thích code `chain-of-resp`
+
 ## Giải thích các case
+
 - ## Case 1:
+
 ## `> $ 500`
-``` javascript
+
+```javascript
 const discount = new Discount();
 const sc = new ShoppingCart();
 sc.addProduct(1000);
@@ -11,9 +15,10 @@ expect(resp).to.equal(0.1);
 ```
 
 - ### `step 11`:
-``` javascript
+
+```javascript
 function Discount() {
-  this.calc = function(products) {
+  this.calc = function (products) {
     var ndiscount = new NumberDiscount();
     var pdiscount = new PriceDiscount();
     var none = new NoneDiscount();
@@ -25,28 +30,32 @@ function Discount() {
   };
 }
 const discount = new Discount();
-console.log(discount, 'discount')
+console.log(discount, "discount");
 ```
+
 ![ScreenShot](../../image/discount_dp21.png)
 
 - ### `step 12`:
-``` javascript
+
+```javascript
 function ShoppingCart() {
   this.products = [];
 
-  this.addProduct = function(p) {
+  this.addProduct = function (p) {
     this.products.push(p);
   };
 }
 const sc = new ShoppingCart();
 ```
+
 ![ScreenShot](../../image/shopping_cart_dp22.png)
 
 - ### `step 13`:
-``` javascript
-`Discount`
+
+```javascript
+`Discount`;
 function Discount() {
-  this.calc = function(products) {
+  this.calc = function (products) {
     var ndiscount = new NumberDiscount();
     var pdiscount = new PriceDiscount();
     var none = new NoneDiscount();
@@ -59,81 +68,101 @@ function Discount() {
 }
 ```
 
-``` javascript
-`NumberDiscount`
+```javascript
+`NumberDiscount`;
 function NumberDiscount() {
   this.next = null;
-  this.setNext = function(fn) {
+  this.setNext = function (fn) {
     this.next = fn;
   };
 
-  this.exec = function(products) {
+  this.exec = function (products) {
     var result = 0;
-    if (products.length > 3)
-      result = 0.05;
+    if (products.length > 3) result = 0.05;
 
     return result + this.next.exec(products);
   };
 }
 ```
 
-``` javascript
-`PriceDiscount`
+```javascript
+`PriceDiscount`;
 function PriceDiscount() {
   this.next = null;
 
-  this.setNext = function(fn) {
+  this.setNext = function (fn) {
     this.next = fn;
   };
 
-  this.exec = function(products) {
+  this.exec = function (products) {
     var result = 0;
-    var total = products.reduce(function(a, b) {
+    var total = products.reduce(function (a, b) {
       return a + b;
     });
 
-    if (total >= 500)
-      result = 0.1;
+    if (total >= 500) result = 0.1;
 
     return result + this.next.exec(products);
   };
 }
 ```
-``` javascript
-`NoneDiscount`
+
+```javascript
+`NoneDiscount`;
 function NoneDiscount() {
-  this.exec = function() {
+  this.exec = function () {
     return 0;
   };
 }
 ```
-``` javascript
+
+```javascript
 const discount = new Discount();
-console.log(discount, 'discount')
+console.log(discount, "discount");
 const sc = new ShoppingCart();
-console.log(sc, 'sc')
+console.log(sc, "sc");
 sc.addProduct(1000);
-console.log(sc, 'sc 1')
+console.log(sc, "sc 1");
 let resp = discount.calc(sc.products);
-console.log(resp, 'resp')
+console.log(resp, "resp");
 ```
+
 ![ScreenShot](../../image/all_dp22.png)
 
+- ## Case 2:
 
+## `more than 3 products`
 
+```javascript
+const discount = new Discount();
+console.log(discount, "discount");
+
+const sc = new ShoppingCart();
+console.log(sc, "sc");
+sc.addProduct(100);
+sc.addProduct(100);
+sc.addProduct(100);
+sc.addProduct(100);
+console.log(sc, "sc");
+
+let resp = discount.calc(sc.products);
+console.log(resp, "resp");
+```
+![ScreenShot](../../image/sc_dp_21.png)
 
 - ## All code
-``` javascript
+
+```javascript
 function ShoppingCart() {
   this.products = [];
 
-  this.addProduct = function(p) {
+  this.addProduct = function (p) {
     this.products.push(p);
   };
 }
 
 function Discount() {
-  this.calc = function(products) {
+  this.calc = function (products) {
     var ndiscount = new NumberDiscount();
     var pdiscount = new PriceDiscount();
     var none = new NoneDiscount();
@@ -147,14 +176,13 @@ function Discount() {
 
 function NumberDiscount() {
   this.next = null;
-  this.setNext = function(fn) {
+  this.setNext = function (fn) {
     this.next = fn;
   };
 
-  this.exec = function(products) {
+  this.exec = function (products) {
     var result = 0;
-    if (products.length > 3)
-      result = 0.05;
+    if (products.length > 3) result = 0.05;
 
     return result + this.next.exec(products);
   };
@@ -163,25 +191,24 @@ function NumberDiscount() {
 function PriceDiscount() {
   this.next = null;
 
-  this.setNext = function(fn) {
+  this.setNext = function (fn) {
     this.next = fn;
   };
 
-  this.exec = function(products) {
+  this.exec = function (products) {
     var result = 0;
-    var total = products.reduce(function(a, b) {
+    var total = products.reduce(function (a, b) {
       return a + b;
     });
 
-    if (total >= 500)
-      result = 0.1;
+    if (total >= 500) result = 0.1;
 
     return result + this.next.exec(products);
   };
 }
 
 function NoneDiscount() {
-  this.exec = function() {
+  this.exec = function () {
     return 0;
   };
 }
