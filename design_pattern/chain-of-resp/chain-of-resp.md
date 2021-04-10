@@ -44,8 +44,7 @@ const sc = new ShoppingCart();
 
 - ### `step 13`:
 ``` javascript
-`discount`
-
+`Discount`
 function Discount() {
   this.calc = function(products) {
     var ndiscount = new NumberDiscount();
@@ -58,7 +57,57 @@ function Discount() {
     return ndiscount.exec(products);
   };
 }
+```
 
+``` javascript
+`NumberDiscount`
+function NumberDiscount() {
+  this.next = null;
+  this.setNext = function(fn) {
+    this.next = fn;
+  };
+
+  this.exec = function(products) {
+    var result = 0;
+    if (products.length > 3)
+      result = 0.05;
+
+    return result + this.next.exec(products);
+  };
+}
+```
+
+``` javascript
+`PriceDiscount`
+function PriceDiscount() {
+  this.next = null;
+
+  this.setNext = function(fn) {
+    this.next = fn;
+  };
+
+  this.exec = function(products) {
+    var result = 0;
+    var total = products.reduce(function(a, b) {
+      return a + b;
+    });
+
+    if (total >= 500)
+      result = 0.1;
+
+    return result + this.next.exec(products);
+  };
+}
+```
+``` javascript
+`NoneDiscount`
+function NoneDiscount() {
+  this.exec = function() {
+    return 0;
+  };
+}
+```
+``` javascript
 const discount = new Discount();
 console.log(discount, 'discount')
 const sc = new ShoppingCart();
