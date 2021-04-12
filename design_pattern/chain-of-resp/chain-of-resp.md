@@ -168,6 +168,57 @@ let resp = discount.calc(sc.products);
 ```
 ![ScreenShot](../../image/sc_sp_22.png)
 
+## `Console`
+![ScreenShot](../../image/discount_dp1.png)
+``` javascript
+`NumberDiscount`
+class NumberDiscount {
+
+  constructor() {
+    this.next = null;
+  }
+
+  setNext(fn) {
+    this.next = fn;
+  };
+
+  exec(products) {
+    console.log('exec number disount')
+    let result = 0;
+    if (products.length > 3)
+      result = 0.05;
+    console.log(this.next.exec(products), 'next_exec_products numer discount')
+
+    return result + this.next.exec(products);
+  };
+}
+```
+
+``` javascript
+`PriceDiscount`
+class PriceDiscount {
+
+  constructor() {
+    this.next = null;
+  }
+
+  setNext(fn) {
+    this.next = fn;
+  };
+
+  exec(products) {
+    console.log('exec price disount')
+    let result = 0;
+    let total = products.reduce((a, b) => a + b);
+
+    if (total >= 500)
+      result = 0.1;
+    console.log(this.next.exec(products), 'next_exec_products price discount')
+
+    return result + this.next.exec(products);
+  };
+}
+```
 
 - ## All code
 
