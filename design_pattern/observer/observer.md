@@ -46,10 +46,10 @@ product.setBasePrice(100)
   }
 ```
 - product.setBasePrice(100)
-lúc này price của `Product` 100
-this.action = [Fees, Proft]
-this.actions.forEach(el => el.update(this));
-=> Fees.update, Profct.update
+lúc này price của `Product` = 100
+- this.action = [Fees, Proft]
+- this.actions.forEach(el => el.update(this));
+- => Fees.update, Profct.update
 
 - ta thấy trong class `Fees` có method `update`
 ``` javascript
