@@ -1,4 +1,4 @@
-# Tìm hiểu về observer javascript
+# Tìm hiểu về Design Pattern observer javascript
 
 ``` javascript
 function register(p, f, t) {
