@@ -11,6 +11,7 @@ function register(p, f, t) {
 ``` javascript
 let product = register(new Product(), new Fees(), new Proft())
 ```
+![ScreenShot](../../image/observer_result.png)
 ta thấy khúc này sẽ trả về 
 
 ``` javascript
@@ -27,7 +28,7 @@ lúc này `Product` sẽ có dạng như sau:
 như vậy có thể thấy dùng `observer` 
 
 ta không cần phải sử dụng `contructor tham số` mà truyền `trực tiếp` vào
-
+![ScreenShot](../../image/observer_init.jpg)
 ``` javascript
 product.setBasePrice(100)
 ```
@@ -71,13 +72,7 @@ lúc này `product.price = 100* 1.2 = 120`
 
 
 
-
-![ScreenShot](../../image/observer_result.png)
-
 ![ScreenShot](../../image/observer.png)
-
-![ScreenShot](../../image/observer_init.jpg)
-
 
 ``` javascript
 class Product {
@@ -117,4 +112,3 @@ class Proft {
 }
 
 ```
-
