@@ -12,7 +12,8 @@ function register(p, f, t) {
 let product = register(new Product(), new Fees(), new Proft())
 ```
 ![ScreenShot](../../image/observer_result.png)
-ta thấy khúc này sẽ trả về 
+
+- ta thấy khúc này sẽ trả về 
 
 ``` javascript
 p.register(f);
