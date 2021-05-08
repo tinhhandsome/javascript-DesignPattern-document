@@ -7,7 +7,7 @@ function register(p, f, t) {
   return p;
 }
 ```
-### ta bắt đầũ xem đoạn code dưới đây
+### ta bắt đầu xem đoạn code dưới đây:
 ``` javascript
 let product = register(new Product(), new Fees(), new Proft())
 ```
@@ -27,6 +27,47 @@ lúc này `Product` sẽ có dạng như sau:
 như vậy có thể thấy dùng `observer` 
 
 ta không cần phải sử dụng `contructor tham số` mà truyền `trực tiếp` vào
+
+``` javascript
+product.setBasePrice(100)
+```
+- ta có thể thấy trong class `Product`
+- có method
+``` javascript
+  setBasePrice(val) {
+    this.price = val;
+    this.notifyAll();
+  }
+
+  notifyAll() {
+    return this.actions.forEach(el => el.update(this));
+  }
+```
+- product.setBasePrice(100)
+lúc này price của `Product` 100
+this.action = [Fees, Proft]
+this.actions.forEach(el => el.update(this));
+=> Fees.update, Profct.update
+
+- ta thấy trong class `Fees` có method `update`
+``` javascript
+  update(product) {
+    product.price = product.price * 1.2;
+  }
+```
+lúc này `product.price = 100* 1.2 = 120`
+- tiếp tục thấy trong class `Proft` cũng có phương thức `update`
+``` javascript
+  notifyAll() {
+    return this.actions.forEach(el => el.update(this));
+  }
+
+  loop
+  product.price = product.price * 1.2;
+  product.price = product.price * 2;
+```
+- lúc này ` product.price = 120 * 2 = 240`
+- phương thức này sẽ nhân dồn `100 * 1.2 * 2`
 
 
 
