@@ -63,10 +63,23 @@ nextState() {
 - như vậy khi call `order.nextStatus()`
 - lúc này tương đương
 ``` javascript
+  class Shipping extends OrderStatus {
+    constructor() {
+      super('shipping', Delivered);
+    }
+  }
+```
+
+``` javascript
 - this.name = 'shipping'
 - this.nextStatus = new Delivered()
 ```
 ![ScreenShot](../../image/state_ds.png)
+- tương tự
+
+``` javascript
+
+```
 
 
 ```javascript
