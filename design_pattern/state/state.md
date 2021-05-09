@@ -1,5 +1,5 @@
 
-
+# Tìm hiểu về Design Pattern state
 ``` javascript
     const order = new Order();
     expect(order.state.name).to.equal('waitingForPayment');
@@ -9,11 +9,6 @@
     expect(order.state.name).to.equal('delivered');
 ```
 ![ScreenShot](../../image/state_detail_1.png)
-
-![ScreenShot](../../image/state_log_1.png)
-
-![ScreenShot](../../image/state_ds.png)
-
 - ta thấy trong class Order
 ``` javascript
 this.state = new WaitingForPayment()
@@ -27,10 +22,48 @@ class WaitingForPayment extends OrderStatus {
 }
 ```
 - phương thức khởi tạo của nó kế thừa `OrderStatus`
-- như vậy `this.state` lúc này
-- sẽ dùng phương thức khởi tạo của `OrderStatus`
+- thấy trong constructor của `OrderStatus`
+``` javascript
+class OrderStatus {
+  constructor(name, nextStatus) {
+    this.name = name;
+    this.nextStatus = nextStatus;
+  }
 
+  next() {
+    return new this.nextStatus();
+  }
+}
+```
+- như vậy lúc này
+- `this.name = 'waitingForPayment'`
+- `this.nextStatus = Shipping`
 
+``` javascript
+order.nextState();
+```
+- ta tiếp tục nhìn vào class `Order`
+``` javascript
+  nextState() {
+    this.state = this.state.next();
+  };
+```
+``` javascript
+class Shipping extends OrderStatus {
+  constructor() {
+    super('shipping', Delivered);
+  }
+}
+```
+- vì `this.state = new WaitingForPayment();`
+- mà class `WaitingForPayment` kế thừa `OrderStatus`
+- => `new this.nextStatus()` === `new Shipping()`
+- nhìn vào `constructor` của `Shipping` ta có thể suy ra:
+- suy ra `this.name === 'shipping'`
+- và `this.nextStatus === Delivered`
+![ScreenShot](../../image/state_ds.png)
+
+![ScreenShot](../../image/state_log_1.png)
 
 
 ``` javascript
