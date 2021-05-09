@@ -1,23 +1,91 @@
-
 # Tìm hiểu về Design Pattern state
-``` javascript
-    const order = new Order();
-    expect(order.state.name).to.equal('waitingForPayment');
-    order.nextState();
-    expect(order.state.name).to.equal('shipping');
-    order.nextState();
-    expect(order.state.name).to.equal('delivered');
+
+```javascript
+const order = new Order();
+expect(order.state.name).to.equal("waitingForPayment");
+order.nextState();
+expect(order.state.name).to.equal("shipping");
+order.nextState();
+expect(order.state.name).to.equal("delivered");
 ```
+
 ![ScreenShot](../../image/state_detail_1.png)
-- ta thấy trong class Order
-``` javascript
-this.state = new WaitingForPayment()
+
+- ta thấy trong `class Order`
+- `constructor()`
+
+```javascript
+constructor() {
+    this.state = new WaitingForPayment();
+}
 ```
-- ta tiếp tục thấy class `WaitingForPayment`
+
+- khi `order.nextState()`
+- bởi vì - `this.state = new WaitingForPayment()`
+- mà `WaitingForPayment` kế thừa `OrderStatus`
+- nên nó có thể sử dụng `method` của `OrderStatus`
+
+``` javascript
+class OrderStatus {
+    constructor(name, nextStatus) {
+      this.name = name;
+      this.nextStatus = nextStatus;
+    }
+  
+    next() {
+      return new this.nextStatus();
+    }
+  }
+```
+## Trước khi call nextState()
+``` javascript
+nextState() {
+  this.state = this.state.next();
+};
+```
+- ta nhìn vào `constructor` của `WaitingForPayment`
+``` javascript
+  class WaitingForPayment extends OrderStatus {
+    constructor() {
+      super('waitingForPayment', Shipping);
+    }
+  }
+```
+
+- lúc này `OrderStatus`
+- có `this.name` === `waitingForPayment`
+- và `this.nextStatus` === `Shipping`
+
+``` javascript
+  this.state = this.state.next();
+```
+- mà `WaitingForPayment` kế thừa `OrderStatus`
+- như vậy khi call `order.nextStatus()`
+- lúc này tương đương
+``` javascript
+- this.name = 'shipping'
+- this.nextStatus = new Delivered()
+```
+![ScreenShot](../../image/state_ds.png)
+
+
+```javascript
+class OrderStatus {
+  constructor(name, nextStatus) {
+    this.name = name;
+    this.nextStatus = nextStatus;
+  }
+
+  next() {
+    return new this.nextStatus();
+  }
+}
+```
+
 ``` javascript
 class WaitingForPayment extends OrderStatus {
   constructor() {
-    super('waitingForPayment', Shipping);
+      super('waitingForPayment', Shipping);
   }
 }
 ```
@@ -34,39 +102,42 @@ class OrderStatus {
     return new this.nextStatus();
   }
 }
-```
+````
+
 - như vậy lúc này
 - `this.name = 'waitingForPayment'`
 - `this.nextStatus = Shipping`
 
+- order.nextState();
+
 ``` javascript
 order.nextState();
 ```
+
 - ta tiếp tục nhìn vào class `Order`
-``` javascript
+
+```javascript
   nextState() {
     this.state = this.state.next();
   };
 ```
-``` javascript
+
+```javascript
 class Shipping extends OrderStatus {
   constructor() {
-    super('shipping', Delivered);
+    super("shipping", Delivered);
   }
 }
 ```
-- vì `this.state = new WaitingForPayment();`
-- mà class `WaitingForPayment` kế thừa `OrderStatus`
+
 - => `new this.nextStatus()` === `new Shipping()`
 - nhìn vào `constructor` của `Shipping` ta có thể suy ra:
 - suy ra `this.name === 'shipping'`
 - và `this.nextStatus === Delivered`
-![ScreenShot](../../image/state_ds.png)
 
 ![ScreenShot](../../image/state_log_1.png)
 
-
-``` javascript
+```javascript
 class OrderStatus {
   constructor(name, nextStatus) {
     this.name = name;
@@ -80,19 +151,19 @@ class OrderStatus {
 
 class WaitingForPayment extends OrderStatus {
   constructor() {
-    super('waitingForPayment', Shipping);
+    super("waitingForPayment", Shipping);
   }
 }
 
 class Shipping extends OrderStatus {
   constructor() {
-    super('shipping', Delivered);
+    super("shipping", Delivered);
   }
 }
 
 class Delivered extends OrderStatus {
   constructor() {
-    super('delivered', Delivered);
+    super("delivered", Delivered);
   }
 }
 
@@ -103,7 +174,6 @@ class Order {
 
   nextState() {
     this.state = this.state.next();
-  };
+  }
 }
-
 ```
