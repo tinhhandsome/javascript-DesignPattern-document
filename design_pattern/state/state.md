@@ -150,6 +150,7 @@ class Shipping extends OrderStatus {
 
 ![ScreenShot](../../image/state_log_1.png)
 
+## syntax es6
 ```javascript
 class OrderStatus {
   constructor(name, nextStatus) {
@@ -188,5 +189,36 @@ class Order {
   nextState() {
     this.state = this.state.next();
   }
+}
+```
+## syntax es5
+``` javascript
+function Order() {
+  this.state = new WaitingForPayment();
+
+  this.nextState = function() {
+    this.state = this.state.next();
+  };
+}
+
+function WaitingForPayment() {
+  this.name = 'waitingForPayment';
+  this.next = function() {
+    return new Shipping();
+  };
+}
+
+function Shipping() {
+  this.name = 'shipping';
+  this.next = function() {
+    return new Delivered();
+  };
+}
+
+function Delivered() {
+  this.name = 'delivered';
+  this.next = function() {
+    return this;
+  };
 }
 ```
