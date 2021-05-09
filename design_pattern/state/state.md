@@ -8,6 +8,10 @@
     order.nextState();
     expect(order.state.name).to.equal('delivered');
 ```
+![ScreenShot](../../image/state_detail_1.png)
+
+![ScreenShot](../../image/state_log_1.png)
+
 ![ScreenShot](../../image/state_ds.png)
 
 - ta thấy trong class Order
