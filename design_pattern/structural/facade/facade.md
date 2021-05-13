@@ -1,4 +1,6 @@
 # Tìm hiểu về Design Pattern Facade
+- Test 
+``` 
 
 ``` javascript
 class ShopFacade {
