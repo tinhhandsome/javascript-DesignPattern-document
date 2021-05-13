@@ -1,7 +1,13 @@
 # Tìm hiểu về Design Pattern Facade
 - Test 
-``` 
+``` javascript
+  const shop = new ShopFacade();
+  const result = shop.calc(100);
+  expect(result).to.equal(99.5);
+```
 
+
+# es6 syntax
 ``` javascript
 class ShopFacade {
   constructor() {
@@ -37,4 +43,8 @@ class Fees {
     return value * 1.05;
   }
 }
+```
+# es5 Syntax
+```javascript
+
 ```
