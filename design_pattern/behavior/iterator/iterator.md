@@ -1,4 +1,4 @@
-## Learn About Interator Design Pattern
+## Learn About Iterator Design Pattern
 ``` javascript
 function test(Iterator) {
   var numbers = new Iterator([1, 2, 3]);
