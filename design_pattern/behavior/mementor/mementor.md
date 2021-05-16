@@ -1,5 +1,48 @@
 ## Learn about Mementor Design pattern
+``` javascript
+    const originator = {
+      store: function(val) {
+        return new Memento(val);
+      },
+      restore: function(memento) {
+        return memento.value;
+      }
+    };
 
+    const careTaker = new Caretaker();
+    careTaker.addMemento(originator.store("hello"));
+    careTaker.addMemento(originator.store("hello world"));
+    careTaker.addMemento(originator.store("hello world !!!"));
+
+    var result = originator.restore(careTaker.getMemento(1));
+    expect(result).to.equal("hello world");
+```
+- const careTaker = new Caretaker()
+``` javascript
+addMemento(memento) {
+  this.values.push(memento);
+}
+```
+-`Caretaker` [new Memento('hello')]
+- careTaker.addMemento(originator.store("hello world"));
+- [ new Memento('hello'),
+    new Memento('hello world')]
+- careTaker.addMemento(originator.store("hello world !!!"));
+- [ new Memento('hello'),
+    new Memento('hello world'),
+    new Memento('hello world !!!')]
+- careTaker.getMemento(1)
+- this.values[1];
+- = new Memento('hello world')
+``` javascript
+class Memento {
+    constructor(value) {
+      this.value = value;
+    }
+  }
+```
+- var result = originator.restore(careTaker.getMemento(1));
+- result = 'hello world'
 ## syntax es6
 ``` javascript
 class Memento {
