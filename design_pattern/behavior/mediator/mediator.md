@@ -46,6 +46,8 @@ boeing1.requestPositions()
     })
 ```
 - [10, 15, 55]
+
+- we can change construtor when contructor
 ## syntax es6
 ``` javascript
 class TrafficTower {
